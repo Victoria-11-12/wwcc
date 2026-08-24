@@ -1,5 +1,6 @@
 # 小光、小浩、小霍的项目
 
-- 文档在docs文件夹
-zhenggit
-huojun
+## 现内容都在docs文件夹内
+- 规范.md有每日操作流程
+- 命令规范在git命令.md
+- 整体计划在plan.md
