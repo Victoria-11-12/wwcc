@@ -1,0 +1,21 @@
+# CI 占位文件：第8周补全 lint + test + build
+# TODO:
+#   - 前端: npm ci && npm run lint && npm run build && npm run test
+#   - 后端: pip install -r requirements.txt && flake8 && pytest
+#   - docker compose build
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 占位检查
+        run: echo "CI 骨架已就绪，等待第8周补全 lint/test/build"
