@@ -1,5 +1,5 @@
 function App() {
-  return <div>你好</div>
+  return <div>React试运行成功</div>
 }
 
 export default App
