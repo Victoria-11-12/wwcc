@@ -1,5 +1,4 @@
-function Home() {
+// 首页（路径 /）
+export const Home = () => {
   return <h1>首页</h1>
 }
-
-export default Home
