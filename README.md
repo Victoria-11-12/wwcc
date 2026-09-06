@@ -42,3 +42,10 @@
   pip install -r requirements.txt
   uvicorn app.main:app --reload
   ```
+
+### react-bit的ui安装
+  ```
+  npx shadcn@latest add @react-bits/组件名-变体
+
+  如：npx shadcn@latest add @react-bits/Dock-TS-TW
+  ```
