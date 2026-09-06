@@ -1,6 +1,7 @@
 'use client';
 
 import Dock from "@/components/Dock";
+import Galaxy from "@/components/Galaxy";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -16,7 +17,12 @@ export default function Home() {
   ];
 
   return (
-    <div>
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* 星空背景，铺满全屏 */}
+      <div className="absolute inset-0">
+        <Galaxy transparent={false} />
+      </div>
+      {/* Dock 浮动在底部 */}
       <Dock items={items} />
     </div>
   );
