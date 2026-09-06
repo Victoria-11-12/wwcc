@@ -48,4 +48,6 @@
   npx shadcn@latest add @react-bits/组件名-变体
 
   如：npx shadcn@latest add @react-bits/Dock-TS-TW
+
+  若组件名有空格，需删掉空格
   ```
