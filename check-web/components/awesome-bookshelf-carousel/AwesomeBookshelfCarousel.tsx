@@ -13,6 +13,7 @@ import { LoadingState } from "./components/LoadingState";
 import { ErrorState } from "./components/ErrorState";
 import { Backdrop } from "./components/Backdrop";
 import { CarouselControls } from "./components/CarouselControls";
+import { BookDetailPanel } from "./components/BookDetailPanel";
 var X = { exports: {} },
   D = {};
 /**
@@ -547,7 +548,7 @@ function we({ book: t, geo: n, idx: i, total: d, onOpenClick: o }) {
             perspective: "800px",
             animation: "fadeIn 0.4s ease both",
           },
-          children: /* @__PURE__ */ r.jsx(Se, {
+          children: /* @__PURE__ */ r.jsx(BookDetailPanel, {
             book: t,
             geo: n,
             onOpenClick: o,
@@ -749,151 +750,6 @@ function we({ book: t, geo: n, idx: i, total: d, onOpenClick: o }) {
       ],
     })
   );
-}
-function Se({ book: t, geo: n, onOpenClick: i }) {
-  const [d, o] = R(!1),
-    a = 130,
-    c = Math.round(a * 1.42),
-    s = 28,
-    p = t.spineColor;
-  return /* @__PURE__ */ r.jsx("div", {
-    style: { perspective: "900px", cursor: "pointer" },
-    onMouseEnter: () => o(!0),
-    onMouseLeave: () => o(!1),
-    onClick: i,
-    children: /* @__PURE__ */ r.jsxs("div", {
-      style: {
-        display: "flex",
-        alignItems: "flex-end",
-        transformStyle: "preserve-3d",
-        transform: d
-          ? "rotateY(-22deg) rotateX(2deg) translateY(-6px)"
-          : "rotateY(-14deg) rotateX(1deg)",
-        transition: "transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
-      },
-      children: [
-        /* @__PURE__ */ r.jsx("div", {
-          style: {
-            width: s,
-            height: c,
-            background: n.bgCss,
-            boxShadow: "inset -3px 0 8px rgba(0,0,0,0.4)",
-            transformOrigin: "right center",
-            transform: "rotateY(90deg) translateZ(-1px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-          },
-          children: /* @__PURE__ */ r.jsx("div", {
-            style: {
-              writingMode: "vertical-rl",
-              textOrientation: "mixed",
-              transform: "rotate(180deg)",
-              fontFamily: "var(--font-spine)",
-              fontSize: 9,
-              fontWeight: 500,
-              letterSpacing: "0.14em",
-              color: "rgba(255,255,255,0.6)",
-              textTransform: "uppercase",
-              maxHeight: c - 20,
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-            },
-            children: t.title,
-          }),
-        }),
-        /* @__PURE__ */ r.jsxs("div", {
-          style: {
-            width: a,
-            height: c,
-            position: "relative",
-            overflow: "hidden",
-            boxShadow: d
-              ? `6px 12px 40px rgba(0,0,0,0.7), 0 0 20px ${p}44`
-              : "4px 8px 28px rgba(0,0,0,0.6)",
-            transition: "box-shadow 0.45s ease",
-          },
-          children: [
-            t.imageUrl
-              ? /* @__PURE__ */ r.jsx("div", {
-                  style: {
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage: `url(${t.imageUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  },
-                })
-              : /* @__PURE__ */ r.jsx("div", {
-                  style: {
-                    position: "absolute",
-                    inset: 0,
-                    background: n.bgCss,
-                  },
-                }),
-            /* @__PURE__ */ r.jsx("div", {
-              style: {
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.65) 100%)",
-              },
-            }),
-            /* @__PURE__ */ r.jsxs("div", {
-              style: {
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: "12px 10px",
-              },
-              children: [
-                /* @__PURE__ */ r.jsx("div", {
-                  style: {
-                    fontFamily: "var(--font-display)",
-                    fontSize: Math.max(9, Math.min(13, a / 10)),
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "rgba(242,232,208,0.92)",
-                    textShadow: "0 1px 6px rgba(0,0,0,0.8)",
-                    letterSpacing: "0.01em",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  },
-                  children: t.title,
-                }),
-                t.author &&
-                  /* @__PURE__ */ r.jsx("div", {
-                    style: {
-                      fontFamily: "var(--font-body)",
-                      fontSize: 8,
-                      color: "rgba(242,232,208,0.55)",
-                      marginTop: 3,
-                      fontStyle: "italic",
-                      letterSpacing: "0.06em",
-                      textShadow: "0 1px 4px rgba(0,0,0,0.8)",
-                    },
-                    children: t.author,
-                  }),
-              ],
-            }),
-            /* @__PURE__ */ r.jsx("div", {
-              style: {
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)",
-                pointerEvents: "none",
-              },
-            }),
-          ],
-        }),
-      ],
-    }),
-  });
 }
 function je({
   books: t,
