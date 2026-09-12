@@ -12,6 +12,7 @@ import { useCarousel } from "./hooks/useCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { ErrorState } from "./components/ErrorState";
 import { Backdrop } from "./components/Backdrop";
+import { CarouselControls } from "./components/CarouselControls";
 var X = { exports: {} },
   D = {};
 /**
@@ -496,7 +497,7 @@ function Pe({
         onBookClick: M,
         onBookHover: B,
       }),
-      /* @__PURE__ */ r.jsx(_e, {
+      /* @__PURE__ */ r.jsx(CarouselControls, {
         books: u,
         activeIdx: w,
         hovered: z,
@@ -1195,101 +1196,6 @@ function ae({ side: t, height: n }) {
         i,
       ),
     ),
-  });
-}
-function _e({
-  books: t,
-  activeIdx: n,
-  hovered: i,
-  autoInterval: d,
-  onPrev: o,
-  onNext: a,
-  onDot: c,
-  accent: s,
-}) {
-  const p = {
-    width: 36,
-    height: 36,
-    borderRadius: 2,
-    background: "rgba(242,232,208,0.04)",
-    border: "1px solid rgba(242,232,208,0.12)",
-    color: "rgba(242,232,208,0.5)",
-    fontSize: 16,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-  };
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      position: "absolute",
-      top: "clamp(20px,3vh,36px)",
-      right: "clamp(20px,3vw,40px)",
-      zIndex: 30,
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-    },
-    children: [
-      /* @__PURE__ */ r.jsx("button", { style: p, onClick: o, children: "←" }),
-      /* @__PURE__ */ r.jsxs("div", {
-        style: {
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-        },
-        children: [
-          /* @__PURE__ */ r.jsx("div", {
-            style: { display: "flex", gap: 5, alignItems: "center" },
-            children: t.map((x, u) =>
-              /* @__PURE__ */ r.jsx(
-                "button",
-                {
-                  onClick: () => c(u),
-                  style: {
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                    width: u === n ? 18 : 5,
-                    height: 5,
-                    borderRadius: 2.5,
-                    background: u === n ? s : "rgba(242,232,208,0.18)",
-                    boxShadow: u === n ? `0 0 8px ${s}aa` : "none",
-                    transition: "all 0.3s ease",
-                  },
-                },
-                x.id,
-              ),
-            ),
-          }),
-          /* @__PURE__ */ r.jsx("div", {
-            style: {
-              width: 56,
-              height: 1,
-              background: "rgba(242,232,208,0.08)",
-              overflow: "hidden",
-              borderRadius: 1,
-            },
-            children:
-              !i &&
-              /* @__PURE__ */ r.jsx(
-                "div",
-                {
-                  style: {
-                    height: "100%",
-                    background: `linear-gradient(to right, ${s}, rgba(242,232,208,0.3))`,
-                    animation: `progressAnim ${d}ms linear forwards`,
-                  },
-                },
-                `${n}-p`,
-              ),
-          }),
-        ],
-      }),
-      /* @__PURE__ */ r.jsx("button", { style: p, onClick: a, children: "→" }),
-    ],
   });
 }
 type AwesomeBookshelfCarouselProps = {
