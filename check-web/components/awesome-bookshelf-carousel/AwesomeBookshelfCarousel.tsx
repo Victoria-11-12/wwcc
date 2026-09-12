@@ -8,6 +8,7 @@ import ce, {
 } from "react";
 import { getBookGeometry, isDarkColor } from "./utils";
 import { useBookshelfData } from "./hooks/useBookshelfData";
+import { useCarousel } from "./hooks/useCarousel";
 var X = { exports: {} },
   D = {};
 /**
@@ -419,56 +420,26 @@ function Pe({
       apiTransform: d,
     }),
     y = u.length,
-    E = se(() => getBookGeometry(u, o, a, c), [u, o, a, c]),
-    [w, Z] = R(0),
-    [K, B] = R(null),
-    [z, q] = R(!1),
-    T = W(0),
-    L = W(0),
-    N = W(null),
-    F = W([]),
-    k = U(
-      (v) => {
-        v !== T.current && ((T.current = v), Z(v), x == null || x(v, u[v]));
-      },
-      [u, x],
-    ),
-    _ = U(() => k((T.current + 1) % y), [k, y]),
-    $ = U(() => k((T.current - 1 + y) % y), [k, y]);
-  (O(() => {
-    if (!(z || y < 2))
-      return (
-        (L.current = window.setInterval(_, s)),
-        () => clearInterval(L.current)
-      );
-  }, [z, _, s, y]),
-    O(() => {
-      const v = (j) => {
-        (j.key === "ArrowRight" && _(), j.key === "ArrowLeft" && $());
-      };
-      return (
-        window.addEventListener("keydown", v),
-        () => window.removeEventListener("keydown", v)
-      );
-    }, [_, $]),
-    O(() => {
-      const v = F.current[w];
-      if (!v || !N.current) return;
-      const j = N.current,
-        C = v.offsetLeft,
-        G = v.offsetWidth,
-        J = j.clientWidth,
-        e = C - J / 2 + G / 2;
-      j.scrollTo({ left: Math.max(0, e), behavior: "smooth" });
-    }, [w]),
-    O(() => () => clearInterval(L.current), []));
-  const M = U(
-    (v, j) => {
-      var C;
-      v !== T.current ? k(v) : (C = j.onClick ?? p) == null || C(j);
-    },
-    [k, p],
-  );
+    E = se(() => getBookGeometry(u, o, a, c), [u, o, a, c]);
+  const {
+    activeIdx: w,
+    hoveredIdx: K,
+    isHovered: z,
+    shelfRef: N,
+    bookRefs: F,
+    selectBook: k,
+    nextBook: _,
+    previousBook: $,
+    handleBookClick: M,
+    setHoveredIdx: B,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useCarousel({
+    books: u,
+    autoInterval: s,
+    onBookClick: p,
+    onBookChange: x,
+  });
   if (g) return /* @__PURE__ */ r.jsx(Ie, {});
   if (f) return /* @__PURE__ */ r.jsx(ie, { msg: f, onRetry: S });
   if (!y)
@@ -488,10 +459,8 @@ function Pe({
       display: "flex",
       flexDirection: "column",
     },
-    onMouseEnter: () => q(!0),
-    onMouseLeave: () => {
-      (q(!1), B(null));
-    },
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
     children: [
       /* @__PURE__ */ r.jsx(Re, {}),
       /* @__PURE__ */ r.jsx(Te, {}),
