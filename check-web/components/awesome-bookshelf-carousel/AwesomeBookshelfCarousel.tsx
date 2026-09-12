@@ -9,6 +9,7 @@ import ce, {
 import { getBookGeometry, isDarkColor } from "./utils";
 import { useBookshelfData } from "./hooks/useBookshelfData";
 import { useCarousel } from "./hooks/useCarousel";
+import { LoadingState } from "./components/LoadingState";
 var X = { exports: {} },
   D = {};
 /**
@@ -440,7 +441,7 @@ function Pe({
     onBookClick: p,
     onBookChange: x,
   });
-  if (g) return /* @__PURE__ */ r.jsx(Ie, {});
+  if (g) return /* @__PURE__ */ r.jsx(LoadingState, {});
   if (f) return /* @__PURE__ */ r.jsx(ie, { msg: f, onRetry: S });
   if (!y)
     return /* @__PURE__ */ r.jsx(ie, {
@@ -1379,41 +1380,6 @@ function _e({
         ],
       }),
       /* @__PURE__ */ r.jsx("button", { style: p, onClick: a, children: "→" }),
-    ],
-  });
-}
-function Ie() {
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      width: "100vw",
-      height: "100vh",
-      background: "var(--bg)",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 20,
-    },
-    children: [
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          width: 32,
-          height: 32,
-          borderRadius: "50%",
-          border: "1.5px solid rgba(200,135,58,0.2)",
-          borderTop: "1.5px solid rgba(200,135,58,0.7)",
-          animation: "spin 0.9s linear infinite",
-        },
-      }),
-      /* @__PURE__ */ r.jsx("p", {
-        style: {
-          fontFamily: "var(--font-mono)",
-          fontSize: 10,
-          color: "rgba(200,135,58,0.4)",
-          letterSpacing: "0.22em",
-        },
-        children: "LOADING",
-      }),
     ],
   });
 }
