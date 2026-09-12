@@ -6,6 +6,7 @@ import ce, {
   useEffect as O,
   useMemo as se,
 } from "react";
+import { getBookGeometry, isDarkColor } from "./utils";
 var X = { exports: {} },
   D = {};
 /**
@@ -393,93 +394,6 @@ function ge() {
   );
 }
 var r = ge();
-function P(t) {
-  const n = Math.sin(t * 84.3 + 193.7) * 39182.5;
-  return n - Math.floor(n);
-}
-function le(t) {
-  const n = t.replace("#", "");
-  return {
-    r: parseInt(n.slice(0, 2), 16),
-    g: parseInt(n.slice(2, 4), 16),
-    b: parseInt(n.slice(4, 6), 16),
-  };
-}
-function oe(t, n) {
-  const { r: i, g: d, b: o } = le(t),
-    a = 1 - n;
-  return `#${[i, d, o]
-    .map((c) =>
-      Math.max(0, Math.round(c * a))
-        .toString(16)
-        .padStart(2, "0"),
-    )
-    .join("")}`;
-}
-function fe(t, n) {
-  const { r: i, g: d, b: o } = le(t);
-  return `#${[i, d, o]
-    .map((a) =>
-      Math.min(255, Math.round(a + (255 - a) * n))
-        .toString(16)
-        .padStart(2, "0"),
-    )
-    .join("")}`;
-}
-function xe(t) {
-  const n = ["cloth", "leather", "linen", "boards"];
-  return n[t % n.length];
-}
-function he(t, n, i, d) {
-  const o = oe(t, 0.3),
-    a = fe(t, 0.12),
-    c = oe(t, 0.12),
-    s = n ?? o,
-    p = (() => {
-      switch (i) {
-        case "cloth":
-          return `linear-gradient(175deg, ${a} 0%, ${t} 35%, ${c} 65%, ${o} 100%)`;
-        case "leather":
-          return `radial-gradient(ellipse 120% 80% at 40% 20%, ${a} 0%, ${t} 40%, ${o} 100%)`;
-        case "linen":
-          return `linear-gradient(180deg, ${c} 0%, ${a} 20%, ${t} 50%, ${c} 80%, ${o} 100%)`;
-        case "boards":
-          return `linear-gradient(180deg, ${a} 0%, ${t} 30%, ${s} 70%, ${o} 100%)`;
-      }
-    })();
-  return `${(() => {
-    const u = d * 17;
-    switch (i) {
-      case "cloth": {
-        const g = 0.12 + P(u) * 0.08,
-          f = `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><line x1='0' y1='6' x2='6' y2='0' stroke='rgba(255,255,255,${g.toFixed(2)})' stroke-width='0.8'/><line x1='-1' y1='1' x2='1' y2='-1' stroke='rgba(255,255,255,${(g * 0.6).toFixed(2)})' stroke-width='0.5'/><line x1='5' y1='7' x2='7' y2='5' stroke='rgba(255,255,255,${(g * 0.6).toFixed(2)})' stroke-width='0.5'/></svg>`;
-        return `url("data:image/svg+xml,${encodeURIComponent(f)}")`;
-      }
-      case "leather": {
-        const g = 0.08 + P(u * 2) * 0.06,
-          f = 0.6 + P(u * 3) * 0.4,
-          S = `<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><circle cx='2' cy='2' r='${f}' fill='rgba(0,0,0,${g})'/><circle cx='6' cy='6' r='${f * 0.7}' fill='rgba(0,0,0,${g * 0.7})'/><circle cx='2' cy='6' r='${f * 0.5}' fill='rgba(255,255,255,${g * 0.4})'/></svg>`;
-        return `url("data:image/svg+xml,${encodeURIComponent(S)}")`;
-      }
-      case "linen": {
-        const g = 0.1 + P(u * 4) * 0.06,
-          f = `<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><line x1='0' y1='1' x2='4' y2='1' stroke='rgba(255,255,255,${g.toFixed(2)})' stroke-width='0.6'/><line x1='0' y1='3' x2='4' y2='3' stroke='rgba(0,0,0,${(g * 0.5).toFixed(2)})' stroke-width='0.4'/></svg>`;
-        return `url("data:image/svg+xml,${encodeURIComponent(f)}")`;
-      }
-      case "boards": {
-        const g = 0.1 + P(u * 5) * 0.07,
-          f = `<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><line x1='3' y1='0' x2='3' y2='10' stroke='rgba(0,0,0,${g.toFixed(2)})' stroke-width='0.7'/><line x1='7' y1='0' x2='7.5' y2='10' stroke='rgba(255,255,255,${(g * 0.5).toFixed(2)})' stroke-width='0.5'/></svg>`;
-        return `url("data:image/svg+xml,${encodeURIComponent(f)}")`;
-      }
-    }
-  })()}, ${p}`;
-}
-function be(t) {
-  return 0.72 + P(t * 7 + 3) * 0.28;
-}
-function me(t) {
-  return 0.3 + P(t * 11 + 5) * 0.7;
-}
 function ve(t) {
   const [n, i] = R(t.data ?? []),
     [d, o] = R(!t.data && !!t.apiEndpoint),
@@ -520,19 +434,6 @@ function ve(t) {
     { books: n, loading: d, error: a, refetch: p }
   );
 }
-function ye(t, n, i, d) {
-  return se(
-    () =>
-      t.map((o, a) => {
-        const c = o.texture ?? xe(a),
-          s = i + me(a) * (d - i),
-          p = Math.round(n * be(a)),
-          x = he(o.spineColor, o.spineColorB, c, a);
-        return { width: s, height: p, texture: c, bgCss: x };
-      }),
-    [t, n, i, d],
-  );
-}
 function Pe({
   data: t,
   apiEndpoint: n,
@@ -557,7 +458,7 @@ function Pe({
       apiTransform: d,
     }),
     y = u.length,
-    E = ye(u, o, a, c),
+    E = se(() => getBookGeometry(u, o, a, c), [u, o, a, c]),
     [w, Z] = R(0),
     [K, B] = R(null),
     [z, q] = R(!1),
@@ -688,7 +589,7 @@ function we({ book: t, geo: n, idx: i, total: d, onOpenClick: o }) {
   }, []);
   const s = t.spineColor;
   return (
-    $e(s),
+    isDarkColor(s),
     /* @__PURE__ */ r.jsxs("div", {
       style: {
         position: "absolute",
@@ -1550,13 +1451,6 @@ function _e({
       /* @__PURE__ */ r.jsx("button", { style: p, onClick: a, children: "→" }),
     ],
   });
-}
-function $e(t) {
-  const n = t.replace("#", ""),
-    i = parseInt(n.slice(0, 2), 16),
-    d = parseInt(n.slice(2, 4), 16),
-    o = parseInt(n.slice(4, 6), 16);
-  return 0.299 * i + 0.587 * d + 0.114 * o < 128;
 }
 function Ie() {
   return /* @__PURE__ */ r.jsxs("div", {
