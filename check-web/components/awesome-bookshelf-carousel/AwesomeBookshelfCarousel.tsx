@@ -16,6 +16,7 @@ import { CarouselControls } from "./components/CarouselControls";
 import { BookDetailPanel } from "./components/BookDetailPanel";
 import { BookViewer } from "./components/BookViewer";
 import { BookSpine } from "./components/BookSpine";
+import { BookShelf } from "./components/BookShelf";
 var X = { exports: {} },
   D = {};
 /**
@@ -489,7 +490,7 @@ function Pe({
           w,
         ),
       }),
-      /* @__PURE__ */ r.jsx(je, {
+      /* @__PURE__ */ r.jsx(BookShelf, {
         books: u,
         geos: E,
         activeIdx: w,
@@ -511,200 +512,6 @@ function Pe({
         accent: (I == null ? void 0 : I.spineColor) ?? "#c8873a",
       }),
     ],
-  });
-}
-function je({
-  books: t,
-  geos: n,
-  activeIdx: i,
-  hoveredIdx: d,
-  shelfHeight: o,
-  shelfRef: a,
-  bookRefs: c,
-  onBookClick: s,
-  onBookHover: p,
-}) {
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      position: "relative",
-      zIndex: 20,
-      flexShrink: 0,
-      width: "100%",
-    },
-    children: [
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: o + 22 + 14,
-          background: `
-          linear-gradient(to bottom,
-            #1e1308 0%,
-            var(--wood-dark) 20%,
-            #251a0c 60%,
-            #1a1008 100%
-          )
-        `,
-          zIndex: 0,
-        },
-      }),
-      /* @__PURE__ */ r.jsxs("div", {
-        ref: a,
-        style: {
-          position: "relative",
-          zIndex: 5,
-          overflowX: "auto",
-          overflowY: "visible",
-          scrollbarWidth: "none",
-          display: "flex",
-          alignItems: "flex-end",
-          padding: "0 clamp(40px,8vw,120px) 0",
-          paddingBottom: 60,
-          gap: 3,
-          height: o + 22 + 14 + 64,
-          perspective: "700px",
-          perspectiveOrigin: "50% 100%",
-        },
-        children: [
-          /* @__PURE__ */ r.jsx(ae, { side: "left", height: o }),
-          t.map((g, f) => {
-            const S = n[f],
-              y = f === i,
-              E = d === f && !y;
-            return /* @__PURE__ */ r.jsx(
-              "div",
-              {
-                ref: (w) => {
-                  c.current[f] = w;
-                },
-                onMouseEnter: () => p(f),
-                onMouseLeave: () => p(null),
-                onClick: () => s(f, g),
-                style: {
-                  flexShrink: 0,
-                  width: S.width,
-                  height: S.height,
-                  cursor: "pointer",
-                  position: "relative",
-                  alignSelf: "flex-end",
-                  transformStyle: "preserve-3d",
-                  transform: y
-                    ? "translateY(-20px) translateZ(28px) rotateY(-5deg)"
-                    : E
-                      ? "translateY(-9px) translateZ(10px) rotateY(-2deg)"
-                      : "translateY(0) translateZ(0) rotateY(0deg)",
-                  transition:
-                    "transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1)",
-                  zIndex: y ? 10 : E ? 6 : 1,
-                },
-                children: /* @__PURE__ */ r.jsx(BookSpine, {
-                  book: g,
-                  geo: S,
-                  isActive: y,
-                  isHovered: E,
-                }),
-              },
-              g.id,
-            );
-          }),
-          /* @__PURE__ */ r.jsx(ae, { side: "right", height: o }),
-        ],
-      }),
-      /* @__PURE__ */ r.jsx(Ee, { plankH: 22, depthH: 14 }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: o + 2,
-          height: 14,
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 100%)",
-          zIndex: 6,
-          pointerEvents: "none",
-        },
-      }),
-    ],
-  });
-}
-function Ee({ plankH: t, depthH: n }) {
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      position: "absolute",
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 7,
-      pointerEvents: "none",
-    },
-    children: [
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          height: t,
-          background: `
-          repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            transparent 60px,
-            rgba(0,0,0,0.06) 60px,
-            rgba(0,0,0,0.06) 62px
-          ),
-          linear-gradient(to bottom,
-            var(--wood-edge)  0%,
-            var(--wood-light) 30%,
-            var(--wood-mid)   70%,
-            var(--wood-dark)  100%
-          )
-        `,
-          boxShadow:
-            "inset 0 2px 4px rgba(255,255,255,0.08), inset 0 -2px 6px rgba(0,0,0,0.4)",
-        },
-      }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          height: n,
-          background: "linear-gradient(to bottom, var(--wood-dark), #160e06)",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.7)",
-        },
-      }),
-    ],
-  });
-}
-function ae({ side: t, height: n }) {
-  return /* @__PURE__ */ r.jsx("div", {
-    style: {
-      flexShrink: 0,
-      width: 20,
-      height: n + 10,
-      alignSelf: "flex-end",
-      background: `linear-gradient(${t === "left" ? "90deg" : "270deg"}, var(--wood-edge), var(--wood-dark))`,
-      boxShadow:
-        t === "left"
-          ? "2px 0 8px rgba(0,0,0,0.4)"
-          : "-2px 0 8px rgba(0,0,0,0.4)",
-      position: "relative",
-      zIndex: 2,
-    },
-    children: [0.25, 0.5, 0.75].map((i) =>
-      /* @__PURE__ */ r.jsx(
-        "div",
-        {
-          style: {
-            position: "absolute",
-            [t === "left" ? "right" : "left"]: 5,
-            top: `${i * 100}%`,
-            width: 4,
-            height: 4,
-            borderRadius: "50%",
-            background: "rgba(255,255,255,0.15)",
-            boxShadow: "inset 0 1px 2px rgba(0,0,0,0.5)",
-          },
-        },
-        i,
-      ),
-    ),
   });
 }
 type AwesomeBookshelfCarouselProps = {
