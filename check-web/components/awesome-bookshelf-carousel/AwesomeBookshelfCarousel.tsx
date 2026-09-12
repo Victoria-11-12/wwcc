@@ -11,6 +11,7 @@ import { useBookshelfData } from "./hooks/useBookshelfData";
 import { useCarousel } from "./hooks/useCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { ErrorState } from "./components/ErrorState";
+import { Backdrop } from "./components/Backdrop";
 var X = { exports: {} },
   D = {};
 /**
@@ -464,8 +465,7 @@ function Pe({
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     children: [
-      /* @__PURE__ */ r.jsx(Re, {}),
-      /* @__PURE__ */ r.jsx(Te, {}),
+      /* @__PURE__ */ r.jsx(Backdrop, {}),
       /* @__PURE__ */ r.jsx("div", {
         style: {
           flex: 1,
@@ -1193,98 +1193,6 @@ function ae({ side: t, height: n }) {
           },
         },
         i,
-      ),
-    ),
-  });
-}
-function Re() {
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: { position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" },
-    children: [
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          inset: 0,
-          background: `
-          radial-gradient(ellipse 70% 50% at 15% 80%, rgba(180,100,20,0.10) 0%, transparent 55%),
-          radial-gradient(ellipse 50% 40% at 85% 20%, rgba(160,90,15,0.07) 0%, transparent 55%),
-          radial-gradient(ellipse 80% 60% at 50% 100%, rgba(100,50,10,0.18) 0%, transparent 50%),
-          linear-gradient(to bottom, #0e0b05 0%, #1a1208 40%, #120d06 100%)
-        `,
-        },
-      }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          inset: 0,
-          opacity: 0.025,
-          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='1'/></svg>")`,
-          backgroundSize: "200px 200px",
-        },
-      }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          top: "-60px",
-          left: "8%",
-          width: 320,
-          height: 320,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(220,140,40,0.12) 0%, transparent 70%)",
-          animation: "lampFlicker 8s ease-in-out infinite",
-          pointerEvents: "none",
-        },
-      }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 25%, rgba(0,0,0,0.65) 100%)",
-        },
-      }),
-    ],
-  });
-}
-function Te() {
-  const t = se(
-    () =>
-      Array.from({ length: 18 }, (n, i) => ({
-        id: i,
-        left: `${10 + (i / 18) * 80}%`,
-        size: 1 + (i % 3) * 0.6,
-        dur: 16 + ((i * 1.8) % 12),
-        del: -((i * 0.9) % 16),
-        dx: `${(Math.sin(i * 2.1) * 30).toFixed(0)}px`,
-      })),
-    [],
-  );
-  return /* @__PURE__ */ r.jsx("div", {
-    style: {
-      position: "absolute",
-      inset: 0,
-      zIndex: 1,
-      pointerEvents: "none",
-      overflow: "hidden",
-    },
-    children: t.map((n) =>
-      /* @__PURE__ */ r.jsx(
-        "div",
-        {
-          style: {
-            position: "absolute",
-            bottom: "30%",
-            left: n.left,
-            width: n.size,
-            height: n.size,
-            borderRadius: "50%",
-            background: "rgba(220,180,80,0.7)",
-            "--dx": n.dx,
-            animation: `dustFloat ${n.dur}s ${n.del}s ease-in-out infinite`,
-          },
-        },
-        n.id,
       ),
     ),
   });
