@@ -15,6 +15,7 @@ import { Backdrop } from "./components/Backdrop";
 import { CarouselControls } from "./components/CarouselControls";
 import { BookDetailPanel } from "./components/BookDetailPanel";
 import { BookViewer } from "./components/BookViewer";
+import { BookSpine } from "./components/BookSpine";
 var X = { exports: {} },
   D = {};
 /**
@@ -598,7 +599,7 @@ function je({
                     "transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1)",
                   zIndex: y ? 10 : E ? 6 : 1,
                 },
-                children: /* @__PURE__ */ r.jsx(ke, {
+                children: /* @__PURE__ */ r.jsx(BookSpine, {
                   book: g,
                   geo: S,
                   isActive: y,
@@ -623,115 +624,6 @@ function je({
             "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 100%)",
           zIndex: 6,
           pointerEvents: "none",
-        },
-      }),
-    ],
-  });
-}
-function ke({ book: t, geo: n, isActive: i, isHovered: d }) {
-  const o = t.spineColor;
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      width: "100%",
-      height: "100%",
-      position: "relative",
-      background: n.bgCss,
-      backgroundSize: "8px 8px, 100% 100%",
-      // Left edge highlight (light catch)
-      boxShadow: i
-        ? `inset 2px 0 5px rgba(255,255,255,0.14), inset -2px 0 8px rgba(0,0,0,0.5), 4px 0 20px rgba(0,0,0,0.6), 0 0 18px ${o}50`
-        : d
-          ? `inset 2px 0 4px rgba(255,255,255,0.10), inset -1px 0 6px rgba(0,0,0,0.4), 3px 0 14px rgba(0,0,0,0.5), 0 0 8px ${o}28`
-          : "inset 1px 0 3px rgba(255,255,255,0.07), inset -1px 0 4px rgba(0,0,0,0.35), 2px 0 8px rgba(0,0,0,0.4)",
-      transition: "box-shadow 0.3s ease",
-      overflow: "hidden",
-    },
-    children: [
-      i &&
-        /* @__PURE__ */ r.jsx("div", {
-          style: {
-            position: "absolute",
-            inset: 0,
-            background: `linear-gradient(90deg, transparent, ${o}22, transparent)`,
-            backgroundSize: "200% 100%",
-            animation: "goldShimmer 2.4s ease-in-out infinite",
-          },
-        }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 4,
-          background: "linear-gradient(to bottom, #e8dfc8, #c4b890)",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.3)",
-        },
-      }),
-      /* @__PURE__ */ r.jsxs("div", {
-        style: {
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingTop: 10,
-          paddingBottom: 8,
-          gap: 6,
-        },
-        children: [
-          /* @__PURE__ */ r.jsx("div", {
-            style: {
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              width: "100%",
-            },
-            children: /* @__PURE__ */ r.jsx("div", {
-              style: {
-                writingMode: "vertical-rl",
-                textOrientation: "mixed",
-                transform: "rotate(180deg)",
-                fontFamily: "var(--font-spine)",
-                fontSize: Math.max(8, Math.min(11, n.width * 0.16)),
-                fontWeight: i ? 600 : 400,
-                letterSpacing: "0.10em",
-                lineHeight: 1.1,
-                color: i ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.62)",
-                textTransform: "uppercase",
-                textShadow: i ? `0 0 10px ${o}88` : "none",
-                transition: "all 0.3s ease",
-                maxHeight: "75%",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-              },
-              children: t.title,
-            }),
-          }),
-          i &&
-            /* @__PURE__ */ r.jsx("div", {
-              style: {
-                width: 4,
-                height: 4,
-                borderRadius: "50%",
-                background: o,
-                boxShadow: `0 0 6px ${o}`,
-                flexShrink: 0,
-              },
-            }),
-        ],
-      }),
-      /* @__PURE__ */ r.jsx("div", {
-        style: {
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 10,
-          background:
-            "linear-gradient(to bottom, transparent, rgba(0,0,0,0.4))",
         },
       }),
     ],
