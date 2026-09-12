@@ -2,7 +2,7 @@
 "use client";
 
 // 引入书架轮播组件及其样式；BookCard 为书本数据的类型
-import { AwesomeBookshelfCarousel, type BookCard } from "@/components/awesome-bookshelf-carousel/AwesomeBookshelfCarousel";
+import { AwesomeBookshelfCarousel, type BookCard } from "@/components/awesome-bookshelf-carousel";
 import "@/components/awesome-bookshelf-carousel/awesome-bookshelf-carousel.css";
 
 // 书架数据，字段含义见 BookCard 类型
