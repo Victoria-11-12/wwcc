@@ -10,6 +10,7 @@ import { getBookGeometry, isDarkColor } from "./utils";
 import { useBookshelfData } from "./hooks/useBookshelfData";
 import { useCarousel } from "./hooks/useCarousel";
 import { LoadingState } from "./components/LoadingState";
+import { ErrorState } from "./components/ErrorState";
 var X = { exports: {} },
   D = {};
 /**
@@ -442,9 +443,9 @@ function Pe({
     onBookChange: x,
   });
   if (g) return /* @__PURE__ */ r.jsx(LoadingState, {});
-  if (f) return /* @__PURE__ */ r.jsx(ie, { msg: f, onRetry: S });
+  if (f) return /* @__PURE__ */ r.jsx(ErrorState, { msg: f, onRetry: S });
   if (!y)
-    return /* @__PURE__ */ r.jsx(ie, {
+    return /* @__PURE__ */ r.jsx(ErrorState, {
       msg: "No books to display.",
       onRetry: S,
     });
@@ -1380,45 +1381,6 @@ function _e({
         ],
       }),
       /* @__PURE__ */ r.jsx("button", { style: p, onClick: a, children: "→" }),
-    ],
-  });
-}
-function ie({ msg: t, onRetry: n }) {
-  return /* @__PURE__ */ r.jsxs("div", {
-    style: {
-      width: "100vw",
-      height: "100vh",
-      background: "var(--bg)",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 16,
-    },
-    children: [
-      /* @__PURE__ */ r.jsxs("p", {
-        style: {
-          fontFamily: "var(--font-mono)",
-          fontSize: 11,
-          color: "rgba(220,80,80,0.6)",
-          letterSpacing: "0.1em",
-        },
-        children: ["⚠ ", t],
-      }),
-      /* @__PURE__ */ r.jsx("button", {
-        onClick: n,
-        style: {
-          background: "transparent",
-          border: "1px solid rgba(242,232,208,0.15)",
-          color: "rgba(242,232,208,0.4)",
-          padding: "7px 20px",
-          cursor: "pointer",
-          fontFamily: "var(--font-mono)",
-          fontSize: 9,
-          letterSpacing: "0.18em",
-        },
-        children: "RETRY",
-      }),
     ],
   });
 }
