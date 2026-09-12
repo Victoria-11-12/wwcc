@@ -7,6 +7,7 @@ import ce, {
   useMemo as se,
 } from "react";
 import { getBookGeometry, isDarkColor } from "./utils";
+import { useBookshelfData } from "./hooks/useBookshelfData";
 var X = { exports: {} },
   D = {};
 /**
@@ -394,46 +395,6 @@ function ge() {
   );
 }
 var r = ge();
-function ve(t) {
-  const [n, i] = R(t.data ?? []),
-    [d, o] = R(!t.data && !!t.apiEndpoint),
-    [a, c] = R(null),
-    s = W(0),
-    p = U(async () => {
-      if (!t.apiEndpoint) return;
-      const x = ++s.current;
-      (o(!0), c(null));
-      try {
-        const u = await fetch(t.apiEndpoint, {
-          headers: { "Content-Type": "application/json", ...t.apiHeaders },
-        });
-        if (!u.ok) throw new Error(`HTTP ${u.status}`);
-        const g = await u.json();
-        if (x !== s.current) return;
-        const f = t.apiTransform
-          ? t.apiTransform(g)
-          : Array.isArray(g)
-            ? g
-            : g.data;
-        i(f);
-      } catch (u) {
-        if (x !== s.current) return;
-        c(u instanceof Error ? u.message : "Failed to load");
-      } finally {
-        x === s.current && o(!1);
-      }
-    }, [t.apiEndpoint]);
-  return (
-    O(() => {
-      if (t.data) {
-        i(t.data);
-        return;
-      }
-      p();
-    }, [t.data, p]),
-    { books: n, loading: d, error: a, refetch: p }
-  );
-}
 function Pe({
   data: t,
   apiEndpoint: n,
@@ -451,7 +412,7 @@ function Pe({
       loading: g,
       error: f,
       refetch: S,
-    } = ve({
+    } = useBookshelfData({
       data: t,
       apiEndpoint: n,
       apiHeaders: i,
