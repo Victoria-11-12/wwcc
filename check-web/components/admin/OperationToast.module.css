@@ -1,0 +1,35 @@
+.toast {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-sizing: border-box;
+  min-width: 338px;
+  height: 55px;
+  padding: 0 24px;
+  border: 1px solid #90d9b1;
+  border-radius: 8px;
+  background: #eaf8f0;
+  color: #1f7a4d;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  pointer-events: none;
+  box-shadow: 0 6px 16px rgba(31, 122, 77, 0.06);
+  transform: translateX(-50%);
+}
+
+.icon {
+  flex: 0 0 18px;
+}
+
+.error {
+  border-color: #f3b4b8;
+  background: #fef2f2;
+  color: #bb2b33;
+  box-shadow: 0 6px 16px rgba(187, 43, 51, 0.06);
+}

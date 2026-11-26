@@ -1,0 +1,20 @@
+.page {
+  --admin-bg: #f7f9fc;
+  --admin-primary: #3b6ff5;
+  --admin-primary-hover: #2f63ea;
+  --admin-ink: #182238;
+  --admin-text: #263449;
+  --admin-muted: #7b8794;
+  --admin-border: #d8e0ea;
+  --admin-card-border: #e7ecf3;
+
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
