@@ -1,0 +1,67 @@
+/* 主表单卡片按照设计稿分成上下两个区域和一个底部按钮。 */
+.card {
+  position: relative;
+  height: 650px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 28px 30px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+/* 上半区放书籍分类和搜索框。 */
+.booksSection {
+  flex: 0 0 auto;
+  padding-bottom: 29px;
+  border-bottom: 1px solid #d8e3ec;
+}
+
+/* 下半区占据剩余空间，用于切换网文输入方式。 */
+.manuscriptSection {
+  /* 自动占满剩余高度并允许内部内容在空间不足时收缩。 */
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-top: 30px;
+}
+
+/* 提交按钮横向铺满卡片底部。 */
+.submitButton {
+  height: 58px;
+  flex: 0 0 58px;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: #087af2;
+  color: #ffffff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: #006de5;
+}
+
+/* 按下按钮时加深颜色，让用户知道点击已经生效。 */
+.submitButton:active {
+  background: #005fc4;
+}
+
+/* 使用键盘聚焦提交按钮时显示蓝色外圈。 */
+.submitButton:focus-visible {
+  outline: 3px solid rgba(8, 122, 242, 0.3);
+  outline-offset: 3px;
+}
+
+/* 小屏时允许卡片内容向下延展。 */
+@media (max-width: 900px) {
+  .card {
+    /* 小屏下取消固定高度，避免上传区和按钮互相重叠。 */
+    height: auto;
+    min-height: 650px;
+    padding: 20px 20px 24px;
+  }
+}

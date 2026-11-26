@@ -1,0 +1,176 @@
+/* 标题和输入方式切换按钮排在同一行。 */
+.controlRow {
+  /* 固定高度让标题和两个切换按钮保持垂直居中。 */
+  height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+.heading {
+  width: 72px;
+  flex: 0 0 72px;
+  margin: 0 43px 0 0;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.modeGroup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modeButton {
+  /* 使用行内弹性布局，让单选框和文字水平对齐。 */
+  width: 146px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 1px solid #d8e3ec;
+  border-radius: 23px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* 选中项使用浅蓝背景和实心圆点。 */
+.modeButton[data-active="true"] {
+  border-color: transparent;
+  background: #eaf7ff;
+}
+
+.modeButton:focus-visible {
+  outline: 2px solid #087af2;
+  outline-offset: 2px;
+}
+
+.radioMark {
+  /* 未选中时为空心圆点，border-box 保证圆点尺寸稳定。 */
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  flex: 0 0 14px;
+  border: 1px solid #9aa4ad;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.modeButton[data-active="true"] .radioMark {
+  /* 选中后使用蓝色实心圆点，与未选中的空心圆点区分。 */
+  border-color: #087af2;
+  background: #087af2;
+}
+
+/* 上传区域位于卡片中间，保持设计稿中的大面积留白。 */
+.uploadArea {
+  /* 自适应左右留白，并把上传框固定在文本框区域中间。 */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  margin: 68px auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111827;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* 上传框使用虚线边框，正中间显示蓝色加号。 */
+.uploadBox {
+  width: 168px;
+  height: 152px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed #bcc3ca;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #087af2;
+}
+
+.plusIcon {
+  width: 42px;
+  height: 42px;
+  stroke-width: 1.5;
+}
+
+.uploadLabel {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.uploadArea:hover .uploadBox {
+  border-color: #087af2;
+  background: #f8fcff;
+}
+
+.uploadArea:focus-visible {
+  outline: 3px solid rgba(8, 122, 242, 0.25);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* 粘贴模式使用大面积多行文本框。 */
+.textarea {
+  /* 宽度包含内边距和边框，确保文本框不超出卡片。 */
+  width: 100%;
+  height: 250px;
+  box-sizing: border-box;
+  display: block;
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #d8e3ec;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.7;
+  outline: none;
+  resize: none;
+}
+
+.textarea::placeholder {
+  color: #9aa4ad;
+}
+
+.textarea:focus {
+  border-color: #087af2;
+  box-shadow: 0 0 0 2px rgba(8, 122, 242, 0.16);
+}
+
+@media (max-width: 700px) {
+  .controlRow {
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .heading {
+    width: auto;
+    flex: none;
+    margin-right: 0;
+  }
+}
+
+/* 小屏时切换按钮改为纵向排列。 */
+@media (max-width: 560px) {
+  .modeGroup {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

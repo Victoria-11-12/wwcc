@@ -1,0 +1,140 @@
+/* 搜索框占据剩余宽度，搜索按钮固定在右侧。 */
+.row {
+  display: flex;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.field {
+  /* 作为放大镜图标的定位容器，同时允许输入框随可用宽度缩小。 */
+  position: relative;
+  min-width: 0;
+  height: 54px;
+  flex: 1;
+}
+
+.searchIcon {
+  /* 使用绝对定位把图标垂直居中放到输入框内部。 */
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  color: #545f6b;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.input {
+  /* 让宽度包含内边距和边框，避免输入框超出右侧按钮。 */
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 18px 0 48px;
+  border: 1px solid #d8e3ec;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6a6e78;
+  opacity: 1;
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* 关键词匹配部分只改变文字颜色，不改变建议项的整体背景。 */
+.match {
+  background: transparent;
+  color: #087af2;
+  font-weight: 500;
+}
+
+/* 建议列表使用绝对定位，显示在搜索框下方并覆盖其他内容。 */
+.suggestions {
+  /* 相对搜索字段定位，浮层覆盖下方内容但不会改变页面高度。 */
+  position: absolute;
+  z-index: 40;
+  top: 62px;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid #d8e3ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.12);
+}
+
+/* 每本匹配书籍单独占一行，点击后即可完成选择。 */
+.suggestionOption {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.suggestionOption:hover,
+.suggestionOption:focus-visible {
+  /* 鼠标悬停和键盘聚焦时都给出浅灰背景提示。 */
+  background: #f2f6fa;
+  outline: none;
+}
+
+/* 输入框获得焦点时显示蓝色边框和轻微光晕。 */
+.field:focus-within {
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px rgba(8, 122, 242, 0.16);
+}
+
+.field:focus-within .input {
+  border-color: #087af2;
+}
+
+.searchButton {
+  /* 搜索按钮使用设计稿中的蓝色主按钮样式，且不随输入框拉伸。 */
+  width: 94px;
+  height: 54px;
+  flex: 0 0 94px;
+  border: 0;
+  border-radius: 8px;
+  background: #087af2;
+  color: #ffffff;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background: #006de5;
+}
+
+.searchButton:focus-visible {
+  outline: 3px solid rgba(8, 122, 242, 0.3);
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .searchButton {
+    /* 手机宽度下缩短按钮，给输入框留下更多空间。 */
+    width: 74px;
+    flex-basis: 74px;
+  }
+}
