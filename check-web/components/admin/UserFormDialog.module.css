@@ -1,0 +1,243 @@
+/*
+ * 新增用户弹窗：遮罩覆盖整个视口，弹窗宽 560px，字段高 42px。
+ * 角色下拉使用绝对定位，展开时覆盖邮箱字段但不改变弹窗高度。
+ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.25);
+}
+
+.dialog {
+  box-sizing: border-box;
+  width: 560px;
+  max-width: 100%;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 24px 32px 32px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.dialog:focus {
+  outline: none;
+}
+
+.title {
+  margin: 0;
+  color: var(--admin-ink, #182238);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.description {
+  margin: 3px 0 0;
+  color: #8a95a3;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.field {
+  min-width: 0;
+}
+
+.label {
+  display: block;
+  margin: 0 0 8px;
+  color: #525d6f;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--admin-border, #d8e0ea);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--admin-text, #263449);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.2;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.input[type="password"] {
+  letter-spacing: 3px;
+}
+
+.input[type="password"]::placeholder {
+  color: #94a0af;
+}
+
+.input::placeholder {
+  color: #a4adba;
+  opacity: 1;
+}
+
+.input:focus {
+  border-color: var(--admin-primary, #3b6ff5);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 111, 245, 0.12);
+}
+
+.inputError {
+  border-color: #e5484d;
+}
+
+.inputError:focus {
+  border-color: #e5484d;
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.12);
+}
+
+.error {
+  margin: 6px 0 0;
+  color: #d93036;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.selectButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--admin-border, #d8e0ea);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--admin-text, #263449);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.selectButton:hover {
+  border-color: #b9cdf7;
+}
+
+.selectButton:focus-visible {
+  border-color: var(--admin-primary, #3b6ff5);
+  outline: 2px solid rgba(59, 111, 245, 0.25);
+  outline-offset: 1px;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  border-top: 4px solid #263449;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+}
+
+.roleOptions {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--admin-border, #d8e0ea);
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.roleOption {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 14px;
+  color: var(--admin-text, #263449);
+  font-size: 15px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.roleOption:hover,
+.roleOptionActive {
+  background: #f4f8ff;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 13px;
+  margin-top: 39px;
+}
+
+.cancelButton,
+.confirmButton {
+  box-sizing: border-box;
+  min-width: 94px;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cancelButton {
+  border: 1px solid var(--admin-border, #d8e0ea);
+  background: #ffffff;
+  color: var(--admin-text, #263449);
+}
+
+.cancelButton:hover {
+  border-color: #b9cdf7;
+  color: var(--admin-primary, #3b6ff5);
+}
+
+.confirmButton {
+  min-width: 96px;
+  border: 1px solid var(--admin-primary, #3b6ff5);
+  background: var(--admin-primary, #3b6ff5);
+  color: #ffffff;
+}
+
+.confirmButton:hover {
+  border-color: var(--admin-primary-hover, #2f63ea);
+  background: var(--admin-primary-hover, #2f63ea);
+}
+
+.cancelButton:focus-visible,
+.confirmButton:focus-visible {
+  outline: 2px solid rgba(59, 111, 245, 0.45);
+  outline-offset: 2px;
+}
+
+.cancelButton:active,
+.confirmButton:active {
+  transform: translateY(1px);
+}

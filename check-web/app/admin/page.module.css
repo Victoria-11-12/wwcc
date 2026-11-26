@@ -1,0 +1,24 @@
+/*
+ * 后台页面主题变量与左右两栏布局。
+ * 所有后台组件通过这里的 --admin-* 变量共享颜色，修改配色只需要改这一处。
+ */
+.page {
+  --admin-bg: #f7f9fc;
+  --admin-primary: #3b6ff5;
+  --admin-primary-hover: #2f63ea;
+  --admin-ink: #182238;
+  --admin-text: #263449;
+  --admin-muted: #7b8794;
+  --admin-border: #d8e0ea;
+  --admin-card-border: #e7ecf3;
+
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
