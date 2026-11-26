@@ -1,3 +1,7 @@
+/*
+ * 用户表格：列宽按 1440px 设计稿比例分配，行高 60px + 1px 分隔线。
+ * 分页按钮固定 34px，位于卡片底部右侧。
+ */
 .tableArea {
   display: flex;
   flex: 1 1 auto;

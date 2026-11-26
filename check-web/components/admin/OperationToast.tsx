@@ -50,6 +50,13 @@ function ErrorIcon() {
   );
 }
 
+/**
+ * 操作结果提示条（成功 / 失败）。
+ *
+ * 成功提示使用 role="status"（等待用户空闲后再播报），
+ * 失败提示使用 role="alert"（立即播报）；显示与自动关闭的时机
+ * 由父组件 UserManagement 控制，本组件只负责外观和语义。
+ */
 export default function OperationToast({
   message,
   tone,

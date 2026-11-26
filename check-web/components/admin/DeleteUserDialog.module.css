@@ -1,3 +1,6 @@
+/*
+ * 删除确认弹窗：宽 507px；整体向上偏移 30px，与设计稿的视觉重心一致。
+ */
 .overlay {
   position: fixed;
   inset: 0;

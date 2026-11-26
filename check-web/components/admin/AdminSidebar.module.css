@@ -1,3 +1,6 @@
+/*
+ * 左侧深色导航栏：固定 220px，贯穿整个视口高度。
+ */
 .sidebar {
   display: flex;
   flex: 0 0 220px;

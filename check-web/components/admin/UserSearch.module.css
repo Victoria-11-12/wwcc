@@ -1,3 +1,6 @@
+/*
+ * 搜索框与建议浮层：搜索框宽 309px，建议浮层绝对定位覆盖在表格上方。
+ */
 .search {
   position: relative;
   flex: 0 1 309px;

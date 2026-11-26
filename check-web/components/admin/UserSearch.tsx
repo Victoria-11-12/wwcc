@@ -36,6 +36,17 @@ interface UserSearchProps {
   onActiveIndexChange: (index: number) => void;
 }
 
+/**
+ * 用户搜索框 + 建议列表（受控组合框）。
+ *
+ * 组件本身不保存搜索词、建议数据和展开状态，全部由 UserManagement 传入，
+ * 这样父组件可以在打开新增/删除弹窗前统一收起建议浮层。
+ *
+ * 三个筛选入口：
+ * 1. 点击建议项 → 用该用户名筛选；
+ * 2. 点击放大镜 → 用当前输入值筛选；
+ * 3. 输入框按 Enter → 有高亮建议时选建议，否则用当前输入值筛选。
+ */
 export default function UserSearch({
   query,
   suggestions,
@@ -47,11 +58,11 @@ export default function UserSearch({
   onActiveIndexChange,
 }: UserSearchProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
   const hasSuggestions = suggestions.length > 0;
   const expanded = open && hasSuggestions;
 
+  // 点击搜索框和建议浮层以外的区域时收起建议。
   useEffect(() => {
     if (!expanded) {
       return;
@@ -74,6 +85,7 @@ export default function UserSearch({
   }, [expanded, onOpenChange, onActiveIndexChange]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // 方向键在建议项之间循环；浮层未展开时先展开并定位到第一/最后一项。
     if (event.key === "ArrowDown") {
       event.preventDefault();
 
@@ -106,6 +118,7 @@ export default function UserSearch({
       return;
     }
 
+    // Enter：优先选择当前高亮的建议，否则把输入框里的关键词应用为筛选条件。
     if (event.key === "Enter") {
       event.preventDefault();
 
@@ -118,6 +131,7 @@ export default function UserSearch({
       return;
     }
 
+    // Esc 只关闭建议浮层，不影响页面其他部分。
     if (event.key === "Escape") {
       if (expanded) {
         event.preventDefault();
@@ -127,12 +141,14 @@ export default function UserSearch({
       return;
     }
 
+    // Tab 离开搜索区域时收起浮层，让焦点正常移到下一个控件。
     if (event.key === "Tab") {
       onOpenChange(false);
       onActiveIndexChange(-1);
     }
   };
 
+  // 点击建议项：把用户名填回输入框，并立即按该用户名筛选。
   const handleSuggestionPick = (user: AdminUser) => {
     onApply(user.name);
   };
@@ -160,7 +176,6 @@ export default function UserSearch({
           }}
           onKeyDown={handleKeyDown}
           placeholder="搜索用户名 / 邮箱"
-          ref={inputRef}
           role="combobox"
           spellCheck={false}
           type="text"
@@ -172,6 +187,7 @@ export default function UserSearch({
           onClick={() => {
             onApply(query);
           }}
+          /* 保持输入框焦点，点击按钮时不会先触发输入框 blur 把浮层收起。 */
           onMouseDown={(event) => event.preventDefault()}
           type="button"
         >
@@ -179,6 +195,7 @@ export default function UserSearch({
         </button>
       </div>
 
+      {/* 建议浮层绝对定位覆盖在表格上方，不推挤页面布局；最多展示 SUGGESTION_LIMIT 条 */}
       {expanded ? (
         <ul
           aria-label="用户搜索建议"
@@ -196,6 +213,7 @@ export default function UserSearch({
               id={`${listId}-option-${user.id}`}
               key={user.id}
               onClick={() => handleSuggestionPick(user)}
+              /* 阻止 mousedown 抢焦点，保证点击建议项时输入框仍保持聚焦。 */
               onMouseDown={(event) => event.preventDefault()}
               onMouseEnter={() => onActiveIndexChange(index)}
               role="option"

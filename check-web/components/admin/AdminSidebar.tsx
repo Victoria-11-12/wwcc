@@ -22,9 +22,17 @@ function HomeIcon() {
   );
 }
 
+/**
+ * 后台左侧导航栏。
+ *
+ * 目前是静态展示：显示当前管理员信息，并把“用户管理”标记为选中项。
+ * 以后增加菜单时，在 nav 中继续添加 Link，并用 aria-current="page"
+ * 标记当前页面即可。
+ */
 export default function AdminSidebar() {
   return (
     <aside className={styles.sidebar} aria-label="后台侧边栏">
+      {/* 管理员信息区：头像中的数字与当前登录用户的序号对应 */}
       <div className={styles.profile}>
         <span className={styles.avatar} aria-hidden="true">
           1
@@ -35,6 +43,7 @@ export default function AdminSidebar() {
         </div>
       </div>
 
+      {/* 导航区：当前只有用户管理一项 */}
       <nav className={styles.nav} aria-label="后台导航">
         <Link
           className={styles.navLink}

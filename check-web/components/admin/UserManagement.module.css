@@ -1,3 +1,7 @@
+/*
+ * 右侧主内容区与白色内容卡片。
+ * 卡片使用 min-height 保持设计稿高度，分页通过 margin-top:auto 贴在卡片底部。
+ */
 .management {
   display: flex;
   flex: 1 1 auto;

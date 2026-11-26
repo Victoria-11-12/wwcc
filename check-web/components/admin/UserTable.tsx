@@ -30,6 +30,13 @@ interface EditableUsernameProps {
   onCancel: () => void;
 }
 
+/**
+ * 行内用户名编辑器。
+ *
+ * 进入编辑时自动聚焦，并把光标放到用户名末尾；
+ * Enter 或失焦保存，Esc 取消。提交动作只执行一次，
+ * 避免 Enter 之后组件卸载又触发 blur 造成重复提交。
+ */
 function EditableUsername({
   initialValue,
   onCommit,
@@ -37,8 +44,10 @@ function EditableUsername({
 }: EditableUsernameProps) {
   const [value, setValue] = useState(initialValue);
   const inputRef = useRef<HTMLInputElement>(null);
+  // 标记是否已经结束编辑，防止 Enter 和 blur 同时触发提交。
   const finishedRef = useRef(false);
 
+  // 进入编辑态：聚焦输入框，光标停在当前用户名末尾。
   useEffect(() => {
     const input = inputRef.current;
 
@@ -50,6 +59,7 @@ function EditableUsername({
     input.setSelectionRange(input.value.length, input.value.length);
   }, []);
 
+  // commit=true 保存，commit=false 取消；一次编辑只允许走一次。
   const finish = (commit: boolean) => {
     if (finishedRef.current) {
       return;
@@ -101,6 +111,13 @@ interface UserTableProps {
   onPageChange: (page: number) => void;
 }
 
+/**
+ * 用户列表表格（展示 + 行内编辑 + 分页）。
+ *
+ * - users 只包含当前页的数据，筛选和分页计算在 UserManagement 完成；
+ * - user.id 同时用作序号和头像数字，删除用户后不会重新编号；
+ * - 行内编辑只修改用户名，其他列保持原样。
+ */
 export default function UserTable({
   users,
   totalCount,
@@ -117,6 +134,7 @@ export default function UserTable({
 
   return (
     <div className={styles.tableArea}>
+      {/* 表格使用固定列宽比例，与设计稿的 1440px 桌面布局对应 */}
       <table className={styles.table} aria-label="用户列表">
         <colgroup>
           <col className={styles.colCheck} />
@@ -130,6 +148,7 @@ export default function UserTable({
 
         <thead>
           <tr className={styles.headRow}>
+            {/* 第一列的方框只是设计稿装饰，不提供选择/全选功能 */}
             <th className={styles.checkHead} scope="col">
               <span
                 className={styles.decorCheckbox}
@@ -157,6 +176,7 @@ export default function UserTable({
         </thead>
 
         <tbody>
+          {/* 筛选结果为空时只显示空状态，不继续渲染旧数据 */}
           {users.length === 0 ? (
             <tr>
               <td className={styles.emptyCell} colSpan={7}>
@@ -170,6 +190,7 @@ export default function UserTable({
             </tr>
           ) : (
             users.map((user) => (
+              // 用 user.id 作为 key 和展示序号，删除后其他行的序号不会被重排
               <tr className={styles.row} key={user.id}>
                 <td className={styles.checkCell}>
                   <span
@@ -183,6 +204,7 @@ export default function UserTable({
                   <span className={styles.avatar} aria-hidden="true">
                     {user.id}
                   </span>
+                  {/* 只有正在编辑的那一行会把用户名替换成输入框 */}
                   {editingId === user.id ? (
                     <EditableUsername
                       initialValue={user.name}
@@ -222,6 +244,7 @@ export default function UserTable({
         </tbody>
       </table>
 
+      {/* 分页放在表格底部右侧；第一页/最后一页的方向按钮禁用 */}
       {totalCount > 0 ? (
         <nav className={styles.pagination} aria-label="用户列表分页">
           <button

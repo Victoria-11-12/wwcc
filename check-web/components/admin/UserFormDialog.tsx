@@ -24,10 +24,22 @@ interface UserFormDialogProps {
   onSubmit: (input: NewUserInput) => void;
 }
 
+/**
+ * 新增用户弹窗。
+ *
+ * 负责三件事：
+ * 1. 收集用户名、角色、邮箱、密码；
+ * 2. 本地校验必填项和邮箱格式，把错误显示在字段下方，并聚焦第一个错误字段；
+ * 3. 校验通过后把数据交给 UserManagement，由父组件更新列表、关闭弹窗并提示。
+ *
+ * 密码只用于表单校验，不会写入用户列表数据。
+ * 角色下拉支持鼠标和键盘：上下键切换、Enter/Space 选择、Esc 收起。
+ */
 export default function UserFormDialog({
   onCancel,
   onSubmit,
 }: UserFormDialogProps) {
+  // 表单值；role 默认“用户”，密码只在前端校验，不进入列表数据。
   const [form, setForm] = useState<NewUserInput>({
     name: "",
     role: "用户",
@@ -44,8 +56,10 @@ export default function UserFormDialog({
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const roleButtonRef = useRef<HTMLButtonElement>(null);
   const roleWrapRef = useRef<HTMLDivElement>(null);
+  // 提交标记：校验通过并调用 onSubmit 后置为 true，防止重复新增。
   const submittedRef = useRef(false);
 
+  // 弹窗基础行为；Esc 时优先收起角色下拉，再关闭整个弹窗。
   useDialogFocus(dialogRef, null, () => {
     if (roleOpen) {
       setRoleOpen(false);
@@ -57,6 +71,7 @@ export default function UserFormDialog({
     onCancel();
   });
 
+  // 点击角色下拉框以外的区域时收起下拉。
   useEffect(() => {
     if (!roleOpen) {
       return;
@@ -77,11 +92,13 @@ export default function UserFormDialog({
     return () => document.removeEventListener("mousedown", handlePointerDown);
   }, [roleOpen]);
 
+  // 修改某个文本字段时，同时清掉该字段的错误提示。
   const updateTextField = (field: TextField, value: string) => {
     setForm((previous) => ({ ...previous, [field]: value }));
     setErrors((previous) => ({ ...previous, [field]: undefined }));
   };
 
+  // 选中角色后收起下拉，并把焦点还给角色按钮，方便继续用键盘操作。
   const chooseRole = (role: UserRole) => {
     setForm((previous) => ({ ...previous, role }));
     setRoleOpen(false);
@@ -89,6 +106,7 @@ export default function UserFormDialog({
     roleButtonRef.current?.focus();
   };
 
+  // 角色下拉的键盘操作：上下切换、Enter/Space 选中、Esc 收起。
   const handleRoleKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
   ) => {
@@ -136,6 +154,8 @@ export default function UserFormDialog({
     }
   };
 
+  // 提交前先做本地校验：必填项 + 邮箱格式。
+  // 校验失败时聚焦第一个出错的字段，不调用父组件的 onSubmit。
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -178,6 +198,7 @@ export default function UserFormDialog({
       return;
     }
 
+    // 标记已提交；之后再点“确认”或按 Enter 都会被开头的判断拦住，避免重复新增。
     submittedRef.current = true;
     onSubmit({ name, role: form.role, email, password: form.password });
   };
@@ -185,6 +206,7 @@ export default function UserFormDialog({
   return (
     <div
       className={styles.overlay}
+      /* 只有点击遮罩本身才关闭；点击弹窗内容不会误触发取消。 */
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onCancel();
@@ -208,6 +230,7 @@ export default function UserFormDialog({
         </p>
 
         <form className={styles.form} noValidate onSubmit={handleSubmit}>
+          {/* 用户名：必填，失焦/提交时由 handleSubmit 统一校验 */}
           <div className={styles.field}>
             <label className={styles.label} htmlFor="new-user-name">
               用户名
@@ -233,6 +256,7 @@ export default function UserFormDialog({
             ) : null}
           </div>
 
+          {/* 角色：自定义下拉，展开后的浮层覆盖在邮箱字段上方，不改变弹窗高度 */}
           <div className={styles.field}>
             <span className={styles.label} id="new-user-role-label">
               角色
@@ -267,6 +291,7 @@ export default function UserFormDialog({
                 <span className={styles.caret} aria-hidden="true" />
               </button>
 
+              {/* 下拉选项：鼠标选择和键盘选择共用 chooseRole */}
               {roleOpen ? (
                 <ul
                   aria-label="角色选项"
@@ -284,6 +309,7 @@ export default function UserFormDialog({
                       id={`new-user-role-option-${index}`}
                       key={role}
                       onClick={() => chooseRole(role)}
+                      /* 阻止 mousedown 抢焦点，选择后焦点仍停在角色按钮上。 */
                       onMouseDown={(event) => event.preventDefault()}
                       onMouseEnter={() => setActiveRole(index)}
                       role="option"
@@ -296,6 +322,7 @@ export default function UserFormDialog({
             </div>
           </div>
 
+          {/* 邮箱：必填，并用 EMAIL_PATTERN 做格式校验 */}
           <div className={styles.field}>
             <label className={styles.label} htmlFor="new-user-email">
               邮箱
@@ -323,6 +350,7 @@ export default function UserFormDialog({
             ) : null}
           </div>
 
+          {/* 密码：只做必填校验，提交给父组件后不进入列表数据 */}
           <div className={styles.field}>
             <label className={styles.label} htmlFor="new-user-password">
               密码
