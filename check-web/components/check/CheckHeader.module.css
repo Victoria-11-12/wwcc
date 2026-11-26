@@ -1,0 +1,76 @@
+/* 顶部白色页头，账户入口靠右显示。 */
+.header {
+  height: 40px;
+  flex: 0 0 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 32px;
+  background: #ffffff;
+}
+
+/* 登录和注册入口之间保持统一间距。 */
+.accountLinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* 未登录时显示的两个文字入口。 */
+.accountLink {
+  color: #1b2a3a;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.accountLink:hover {
+  color: #087af2;
+}
+
+/* 使用键盘选中链接时显示清楚的焦点边框。 */
+.accountLink:focus-visible {
+  outline: 2px solid #087af2;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* 头像和用户名始终作为一个整体，保持在页头右侧同一行。 */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1b2a3a;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 头像尺寸固定，不会被较长的用户名挤压变形。 */
+.avatar {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eaf7ff;
+  color: #087af2;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.userName {
+  /* 用户名过长时显示省略号，避免撑出页头。 */
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 小屏时同步缩小页头左右边距。 */
+@media (max-width: 900px) {
+  .header {
+    padding: 0 18px;
+  }
+}

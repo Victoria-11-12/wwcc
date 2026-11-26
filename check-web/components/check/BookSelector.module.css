@@ -1,0 +1,147 @@
+/* 书籍标签和右侧选项保持在同一行。 */
+.row {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.heading {
+  /* 固定标题宽度，让三个分类按钮始终从同一水平位置开始。 */
+  width: 72px;
+  flex: 0 0 72px;
+  margin: 0 28px 0 0;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.categoryItem {
+  /* 每个按钮都是独立定位点；提高层级可避免下拉被搜索行盖住。 */
+  position: relative;
+  z-index: 20;
+}
+
+.categoryList {
+  /* 选项之间保留间距，空间不足时按钮可以换行。 */
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 分类按钮使用统一的浅灰背景和圆角。 */
+.categoryButton {
+  height: 40px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  background: #f2f6fa;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  background: #eaf0f5;
+}
+
+/* 当前打开的分类使用蓝色背景。 */
+.categoryButton[data-active="true"] {
+  background: #087af2;
+  color: #ffffff;
+}
+
+.categoryButton:focus-visible {
+  outline: 2px solid #087af2;
+  outline-offset: 2px;
+}
+
+/* 下拉层使用绝对定位，覆盖搜索框但不推动页面其他内容。 */
+.dropdown {
+  /* 相对当前分类按钮定位，因此不同分类的下拉会与各自按钮对齐。 */
+  position: absolute;
+  z-index: 30;
+  top: 48px;
+  left: 0;
+  width: 228px;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid #d8e3ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.12);
+}
+
+/* 每个选项独占一行，文字靠左显示。 */
+.bookOption {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* 鼠标悬停、按下或键盘聚焦时显示蓝色高亮。 */
+.bookOption:hover,
+.bookOption:active,
+.bookOption:focus-visible {
+  /* 鼠标和键盘操作使用相同的蓝色高亮，保证状态一致。 */
+  background: #087af2;
+  color: #ffffff;
+  outline: none;
+}
+
+/* 选书后显示书名，过长时用省略号截断。 */
+.selectedBook {
+  /* 为左侧标题预留空间，书名过长时不会撑出卡片。 */
+  max-width: calc(100% - 100px);
+  overflow: hidden;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 小屏时改为纵向排列，避免分类按钮被挤压。 */
+@media (max-width: 700px) {
+  .row {
+    /* 窄屏下标题和按钮改为上下排列，避免内容拥挤。 */
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .heading {
+    width: auto;
+    flex: none;
+    margin-right: 0;
+  }
+
+  .categoryList {
+    flex-wrap: wrap;
+  }
+
+  .dropdown {
+    /* 窄屏时避免下拉层超出页面可用宽度。 */
+    width: min(228px, calc(100vw - 36px));
+  }
+
+  .selectedBook {
+    max-width: 100%;
+  }
+}
